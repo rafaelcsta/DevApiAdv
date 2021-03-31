@@ -4,8 +4,16 @@ import json
 app = Flask(__name__)
 
 desenvolvedores = [
-    {'nome':'Rafael','habilidades':['Python', 'Flask']},
-    {'nome':'Costa','habilidades':['Python', 'Html']}
+    {
+        'id':'0',
+        'nome':'Rafael',
+        'habilidades':['Python', 'Flask']
+    },
+
+    {
+        'id':'1',
+        'nome':'Costa',
+        'habilidades':['Sql', 'Html']}
 ]
 
 @app.route('/dev/<int:id>', methods=['GET', 'PUT', 'DELETE'])
@@ -27,6 +35,15 @@ def desenvolvedor(id):
     elif request.method == 'DELETE':
         desenvolvedores.pop(id)
         return jsonify({'status':'sucesso', 'mensagem':'Registro excluído'})
+
+# devolve um desenvolvedor pelo ID, também altera e deleta um desenvolvedor
+# Lista todos os desenvolvedores e permite registrar um novo.
+@app.route('/dev/', methods=['POST', 'GET'])
+def lista_desenvolvedores():
+    if request.method == 'POST':
+        dados = json.loads(request.data)
+        desenvolvedores.append(dados)
+        return jsonify({'status':'sucesso', 'mensagem':'Registro inserido!'})
 
 if __name__ == '__main__':
     app.run(debug=True)
