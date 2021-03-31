@@ -38,9 +38,9 @@ def desenvolvedor(id):
 
 # devolve um desenvolvedor pelo ID, também altera e deleta um desenvolvedor
 # Lista todos os desenvolvedores e permite registrar um novo.
-@app.route('/dev/', methods=['POST', 'GET'])
+@app.route('/dev/', methods=['POST', 'GET', 'PUT'])
 def lista_desenvolvedores():
-    if request.method == 'POST':
+    if request.method == 'PUT':
         dados = json.loads(request.data)
         posicao = len(desenvolvedores)
         dados['id'] = posicao
