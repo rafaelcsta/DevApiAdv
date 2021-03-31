@@ -42,8 +42,12 @@ def desenvolvedor(id):
 def lista_desenvolvedores():
     if request.method == 'POST':
         dados = json.loads(request.data)
+        posicao = len(desenvolvedores)
+        dados['id'] = posicao
         desenvolvedores.append(dados)
-        return jsonify({'status':'sucesso', 'mensagem':'Registro inserido!'})
+        return jsonify(desenvolvedores[posicao])
+    elif request.method == 'GET':
+        return jsonify(desenvolvedores)
 
 if __name__ == '__main__':
     app.run(debug=True)
